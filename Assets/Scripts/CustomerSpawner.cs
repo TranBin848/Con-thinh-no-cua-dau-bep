@@ -27,6 +27,7 @@ public class CustomerSpawner : MonoBehaviour
 
             customerScript.menuList = menuList;
             customerScript.chairTarget = targetChair.transform;
+            customerScript.chairScript = targetChair;
 
             targetChair.isOccupied = true;
         }
