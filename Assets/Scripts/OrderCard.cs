@@ -2,19 +2,20 @@
 using UnityEngine.UI;
 public class OrderCard : MonoBehaviour
 {
-    public TextMesh dishNameText;
     public Image dishImage;
-    public Slider prepSlider;
+    public Image fillBarImage;
+    private Vector3 initialScale;
     private float prepTimeLimit; 
-    private float prepTimer; 
+    private float prepTimer;
     private Customer customer;
-    public void Setup(string dishName, Sprite dishSprite, float timeLimit, Customer customer)
+    public void Setup(Sprite dishSprite, float timeLimit, Customer customer)
     {
-        dishNameText.text = dishName;
         dishImage.sprite = dishSprite;
         prepTimeLimit = timeLimit;
         prepTimer = timeLimit;
         this.customer = customer;
+        initialScale = fillBarImage.transform.localScale;
+        fillBarImage.transform.localScale = new Vector3(0, initialScale.y, initialScale.z); // Thanh rỗng
     }
 
     private void Update()
@@ -22,10 +23,15 @@ public class OrderCard : MonoBehaviour
         if (prepTimer > 0)
         {
             prepTimer -= Time.deltaTime;
-            prepSlider.value = 1 - (prepTimer / prepTimeLimit); // Slider tăng từ 0 đến 1
+            float fillRatio = 1 - (prepTimer / prepTimeLimit); // Tỷ lệ từ 0 đến 1
+            fillBarImage.transform.localScale = new Vector3(fillRatio * initialScale.x, initialScale.y, initialScale.z); // Scale thanh
+            if (prepTimer <= 3 && prepTimer > 0) // Rung khi gần hết
+            {
+                fillBarImage.transform.localPosition += Random.insideUnitSphere * 0.02f;
+            }
             if (prepTimer <= 0)
             {
-                customer.OnPrepTimeout(); // Gọi khi hết thời gian
+                customer.OnPrepTimeout();
                 OrderManager.Instance.RemoveOrder(this);
             }
         }

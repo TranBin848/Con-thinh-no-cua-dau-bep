@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
+    
 public class OrderManager : MonoBehaviour
 {
     public static OrderManager Instance;
@@ -19,7 +19,7 @@ public class OrderManager : MonoBehaviour
         // Tạo card mới
         GameObject card = Instantiate(orderCardPrefab, orderPanel);
         OrderCard cardScript = card.GetComponent<OrderCard>();
-        cardScript.Setup(dishName, dishSprite, prepTimeLimit, customer);
+        cardScript.Setup(dishSprite, prepTimeLimit, customer);
         activeOrders.Add(cardScript);
     }
 

@@ -106,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   chairTarget: {fileID: 0}
+  spawnPoint: {fileID: 0}
   chairScript: {fileID: 0}
   menuList: {fileID: 0}
   speechBubblePrefabs:
@@ -114,6 +115,10 @@ MonoBehaviour:
   - {fileID: 2184028719844501302, guid: 6f7999d48fb60c940804728a36d19fb4, type: 3}
   orderTimeLimit: 10
   speechBubbleOffsetY: 1.5
+  dishSprites:
+  - {fileID: -346500140, guid: 11a7597b670a3c545a354168d4519458, type: 3}
+  - {fileID: 1029353070, guid: 11a7597b670a3c545a354168d4519458, type: 3}
+  - {fileID: 667070434, guid: 11a7597b670a3c545a354168d4519458, type: 3}
 --- !u!195 &4804119198142228627
 NavMeshAgent:
   m_ObjectHideFlags: 0
