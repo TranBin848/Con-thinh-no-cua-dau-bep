@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class CustomerSpawner : MonoBehaviour
 {
@@ -28,6 +27,7 @@ public class CustomerSpawner : MonoBehaviour
             customerScript.menuList = menuList;
             customerScript.chairTarget = targetChair.transform;
             customerScript.chairScript = targetChair;
+            customerScript.spawnPoint = spawnPoint;
 
             targetChair.isOccupied = true;
         }

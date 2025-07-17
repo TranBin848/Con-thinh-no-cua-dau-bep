@@ -7,6 +7,7 @@ public class Customer : MonoBehaviour, IInteractable
 
     public float moveSpeed = 2f;
     public Transform chairTarget; // ghế mà khách sẽ ngồi
+    public Transform spawnPoint;
     public Chair chairScript;
     public MenuList menuList;
     public GameObject[] speechBubblePrefabs; // Các prefab khung chat
@@ -18,7 +19,7 @@ public class Customer : MonoBehaviour, IInteractable
 
     private string orderedDish;
 
-    private bool isMoving = false;
+    //private bool isMoving = false;
     private bool isSitting = false;
     private bool hasOrdered = false;
 
@@ -36,9 +37,7 @@ public class Customer : MonoBehaviour, IInteractable
         if (chairTarget != null)
         {
             agent.SetDestination(chairTarget.position); // Đặt điểm đến là ghế
-            //StartCoroutine(MoveToChair());
         }
-        
     }
 
     private void Update()
@@ -71,20 +70,6 @@ public class Customer : MonoBehaviour, IInteractable
                 OnOrderTimeout();
             }
         }
-    }
-
-    IEnumerator MoveToChair()
-    {
-        isMoving = true;
-        while (Vector2.Distance(transform.position, chairTarget.position) > 0.05f)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, chairTarget.position, moveSpeed * Time.deltaTime);
-            yield return null;
-        }
-        transform.position = chairTarget.position; // snap vị trí
-
-        isMoving = false;
-        OrderFood();
     }
 
     void OrderFood()
@@ -132,6 +117,24 @@ public class Customer : MonoBehaviour, IInteractable
             }
             // TODO: Giảm danh tiếng quán (cần tích hợp với hệ thống danh tiếng)
         }
+    }
+
+    public void OnPrepTimeout()
+    {
+        Debug.Log(gameObject.name + " hết thời gian chuẩn bị, khách nổi giận và bỏ về!");
+        animator.SetTrigger("isAngry"); // Trigger animation giận dữ
+        StartCoroutine(LeaveRestaurant());
+        // TODO: Giảm danh tiếng quán
+    }
+
+    IEnumerator LeaveRestaurant()
+    {
+        chairScript.isOccupied = false; // Giải phóng ghế
+        animator.SetBool("isSitting", false);
+        animator.SetBool("isMoving", true);
+        agent.SetDestination(spawnPoint.position); // Quay lại điểm spawn
+        yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance);
+        Destroy(gameObject); // Xóa khách
     }
 
     void SitDown()
