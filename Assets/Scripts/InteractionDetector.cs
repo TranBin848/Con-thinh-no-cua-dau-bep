@@ -35,9 +35,4 @@ public class InteractionDetector : MonoBehaviour
             interactionIcon.SetActive(false); // Ẩn biểu tượng tương tác khi không còn đối tượng trong phạm vi
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

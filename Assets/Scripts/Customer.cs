@@ -27,9 +27,11 @@ public class Customer : MonoBehaviour, IInteractable
     NavMeshAgent agent;
     private Animator animator;
 
-    
+    public GameObject interactionIcon; // Biểu tượng tương tác
+
     void Start()
     {
+        interactionIcon.SetActive(false); // Ẩn biểu tượng tương tác ban đầu
         customerID ??= GlobalHelper.GenerateUniqueId(gameObject); // Tạo ID duy nhất nếu chưa có
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -116,13 +118,13 @@ public class Customer : MonoBehaviour, IInteractable
     public void OnPrepTimeout()
     {
         Debug.Log(gameObject.name + " hết thời gian chuẩn bị, khách nổi giận và bỏ về!");
-        animator.SetTrigger("isAngry"); // Trigger animation giận dữ
         StartCoroutine(LeaveRestaurant());
         // TODO: Giảm danh tiếng quán
     }
 
     IEnumerator LeaveRestaurant()
     {
+        interactionIcon.SetActive(true); // Hiển thị biểu tượng tương tác khi khách rời đi
         chairScript.isOccupied = false; // Giải phóng ghế
         animator.SetBool("isSitting", false);
         animator.SetBool("isMoving", true);
