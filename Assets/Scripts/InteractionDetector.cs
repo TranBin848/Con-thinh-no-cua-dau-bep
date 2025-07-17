@@ -24,7 +24,7 @@ public class InteractionDetector : MonoBehaviour
         if(collision.TryGetComponent(out IInteractable interactable) && interactable.canInteract())
         {
             interactableInRange = interactable;
-            interactionIcon.SetActive(true); // Hiển thị biểu tượng tương tác khi có đối tượng trong phạm vi
+            //interactionIcon.SetActive(true); // Hiển thị biểu tượng tương tác khi có đối tượng trong phạm vi
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

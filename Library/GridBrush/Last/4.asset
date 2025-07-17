@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Default Brush
   m_EditorClassIdentifier: 
   m_Cells:
-  - m_Tile: {fileID: 11400000, guid: e0b49c32847e6a044b71823482608095, type: 2}
+  - m_Tile: {fileID: 11400000, guid: 90e1ada72a608b7448a477ac736afc42, type: 2}
     m_Matrix:
       e00: 1
       e01: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
       e32: 0
       e33: 1
     m_Color: {r: 1, g: 1, b: 1, a: 1}
-  - m_Tile: {fileID: 11400000, guid: 69f481464780b12428ccf046cec98037, type: 2}
+  - m_Tile: {fileID: 11400000, guid: 00c07a8de267a9e43a4ad3e7ced3fc3c, type: 2}
     m_Matrix:
       e00: 1
       e01: 0
@@ -58,5 +58,5 @@ MonoBehaviour:
   m_FloodFillContiguousOnly: 1
   m_LastPickedLayout: 0
   m_LastPickedCellSwizzle: 0
-  m_LastPickedCellSize: {x: 1, y: 1, z: 0}
+  m_LastPickedCellSize: {x: 1.0002441, y: 1, z: 0}
   m_LastPickedCellGap: {x: 0, y: 0, z: 0}
