@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4655488fa00d0b44e80faf0cd024b523, type: 3}
   m_Name: ChaCa
   m_EditorClassIdentifier: 
-  dishName: ChaCa
+  dishId: 1
   dishSprite: {fileID: -346500140, guid: 11a7597b670a3c545a354168d4519458, type: 3}
   fishIngredient: {fileID: 7999849981074499974, guid: 90642de3449a82245808dc5fdf3f08fc, type: 3}
   vegetableIngredient: {fileID: 7787223260215727404, guid: 38932e94e6c581b4287e02ed8baa15c3, type: 3}

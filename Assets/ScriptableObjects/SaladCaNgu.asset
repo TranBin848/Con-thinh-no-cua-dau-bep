@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4655488fa00d0b44e80faf0cd024b523, type: 3}
   m_Name: SaladCaNgu
   m_EditorClassIdentifier: 
-  dishName: Salad Ca Ngu
+  dishId: 2
   dishSprite: {fileID: 1029353070, guid: 11a7597b670a3c545a354168d4519458, type: 3}
   fishIngredient: {fileID: 4592282024547881652, guid: 9b86cb69fe8c3904ca535da2a4451a6f, type: 3}
   vegetableIngredient: {fileID: 4603492308288633894, guid: 180248b8729bc4e46befd1fb8206be10, type: 3}

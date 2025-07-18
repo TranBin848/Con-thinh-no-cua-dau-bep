@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MenuList
   m_EditorClassIdentifier: 
   dishes:
+  - {fileID: 11400000, guid: 724331f53d86667479d635656760ecd8, type: 2}
   - {fileID: 11400000, guid: bd926665b5994964b934604dfbe64e06, type: 2}
   - {fileID: 11400000, guid: 5cf86116210a1604cba144928016e963, type: 2}
-  - {fileID: 11400000, guid: 724331f53d86667479d635656760ecd8, type: 2}

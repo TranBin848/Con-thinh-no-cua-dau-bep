@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4655488fa00d0b44e80faf0cd024b523, type: 3}
   m_Name: CaChien
   m_EditorClassIdentifier: 
-  dishName: CaChien
+  dishId: 3
   dishSprite: {fileID: 667070434, guid: 11a7597b670a3c545a354168d4519458, type: 3}
   fishIngredient: {fileID: 2954063324186486392, guid: f716fbd89a561ce48bc38e711d7d1331, type: 3}
   vegetableIngredient: {fileID: 4099428920362217281, guid: c954400ddcf241f4a8ff0288bb62a00b, type: 3}
