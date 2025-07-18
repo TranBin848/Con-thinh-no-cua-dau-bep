@@ -8,17 +8,18 @@ public class Chef : MonoBehaviour
     public float waitTimeAtPoint = 3f;
     private UnityEngine.AI.NavMeshAgent agent;
     private Animator animator;
-    private enum BossState { Idle, MovingToStorage, MovingToKitchen, MovingToPrivateRoom }
+    private enum BossState { Idle, MovingToStorage, MovingToKitchen, CollectingFish, CollectingVegetable, MovingToPrivateRoom }
     private BossState currentState = BossState.Idle;
-    private float waitTimer;
-
+    public float collectFishTimer = 2f;
+    public float collectVegetableTimer = 2f;
+    public float cookingTimer = 5f;
+    private OrderCard currentOrder; // OrderCard đang xử lý
     void Start()
     {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         animator = GetComponent<Animator>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        waitTimer = 0f;
     }
 
     void Update()
@@ -42,6 +43,7 @@ public class Chef : MonoBehaviour
             case BossState.Idle:
                 if (OrderManager.Instance.activeOrders.Count > 0)
                 {
+                    currentOrder = OrderManager.Instance.activeOrders[0];
                     // Có OrderCard, đi đến kho
                     currentState = BossState.MovingToStorage;
                     agent.SetDestination(storagePoint.position);
@@ -49,6 +51,7 @@ public class Chef : MonoBehaviour
                 }
                 else
                 {
+                    
                     // Không có OrderCard, đi đến phòng riêng
                     currentState = BossState.MovingToPrivateRoom;
                     agent.SetDestination(privateRoomPoint.position);
@@ -59,13 +62,38 @@ public class Chef : MonoBehaviour
             case BossState.MovingToStorage:
                 if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
                 {
-                    waitTimer -= Time.deltaTime;
-                    if (waitTimer <= 0)
+                    currentState = BossState.CollectingFish;
+                    agent.SetDestination(currentOrder.dishData.fishIngredient.transform.position);
+                    Debug.Log($"Boss moving to fish: {currentOrder.dishData.fishIngredient.name}");
+                }
+                break;
+
+            case BossState.CollectingFish:
+                if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    collectFishTimer -= Time.deltaTime;
+                    if (collectFishTimer <= 0)
                     {
+                        animator.SetTrigger("CollectIngredients");
+                        currentState = BossState.CollectingVegetable;
+                        agent.SetDestination(currentOrder.dishData.vegetableIngredient.transform.position);
+                        collectFishTimer = waitTimeAtPoint;
+                        Debug.Log($"Boss collecting fish: {currentOrder.dishData.fishIngredient.name}");
+                    }
+                }
+                break;
+
+            case BossState.CollectingVegetable:
+                if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+                {
+                    collectVegetableTimer -= Time.deltaTime;
+                    if (collectVegetableTimer <= 0)
+                    {
+                        animator.SetTrigger("CollectIngredients");
                         currentState = BossState.MovingToKitchen;
                         agent.SetDestination(kitchenPoint.position);
-                        waitTimer = waitTimeAtPoint;
-                        Debug.Log("Boss moving to kitchen");
+                        collectVegetableTimer = waitTimeAtPoint;
+                        Debug.Log($"Boss collecting vegetable: {currentOrder.dishData.vegetableIngredient.name}");
                     }
                 }
                 break;
@@ -73,11 +101,11 @@ public class Chef : MonoBehaviour
             case BossState.MovingToKitchen:
                 if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
                 {
-                    waitTimer -= Time.deltaTime;
-                    if (waitTimer <= 0)
+                    cookingTimer -= Time.deltaTime;
+                    if (cookingTimer <= 0)
                     {
                         currentState = BossState.Idle;
-                        waitTimer = waitTimeAtPoint;
+                        cookingTimer = 5f;
                         Debug.Log("Boss finished at kitchen, checking orders");
                     }
                 }

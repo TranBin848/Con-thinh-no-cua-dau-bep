@@ -8,14 +8,16 @@ public class OrderCard : MonoBehaviour
     private float prepTimeLimit; 
     private float prepTimer;
     private Customer customer;
-    public void Setup(Sprite dishSprite, float timeLimit, Customer customer)
+    public DishData dishData { get; private set; }
+    public void Setup(DishData dish, float timeLimit, Customer customer)
     {
-        dishImage.sprite = dishSprite;
+        dishData = dish;
+        dishImage.sprite = dish.dishSprite;
         prepTimeLimit = timeLimit;
         prepTimer = timeLimit;
         this.customer = customer;
         initialScale = fillBarImage.transform.localScale;
-        fillBarImage.transform.localScale = new Vector3(0, initialScale.y, initialScale.z); // Thanh rỗng
+        fillBarImage.transform.localScale = new Vector3(0, initialScale.y, initialScale.z);
     }
 
     private void Update()

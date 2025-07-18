@@ -50,6 +50,9 @@ TagManager:
   - name: Collision
     uniqueID: 4132692555
     locked: 0
+  - name: CollisionItem
+    uniqueID: 1293051553
+    locked: 0
   - name: Item
     uniqueID: 1955886643
     locked: 0

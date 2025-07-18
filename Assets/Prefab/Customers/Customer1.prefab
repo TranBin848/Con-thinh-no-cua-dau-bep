@@ -80,7 +80,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 692911135
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 1253606809, guid: f1a9e11f7c0c4494082478d0b8518f22, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -110,6 +110,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   chairScript: {fileID: 0}
   menuList: {fileID: 0}
+  orderedDish: {fileID: 0}
   speechBubblePrefabs:
   - {fileID: 7110479362986831687, guid: f390f197716f0434f8dac16bd43603d9, type: 3}
   - {fileID: 3055687200895463445, guid: 0ca80873531d2de48a136d2e8451d5c6, type: 3}
@@ -313,7 +314,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1171088667
-  m_SortingLayer: 7
+  m_SortingLayer: 8
   m_SortingOrder: 0
   m_Sprite: {fileID: -4850997437327099272, guid: 2d51f173e5239c84ea3d5af866435f58, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

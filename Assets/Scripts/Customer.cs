@@ -10,6 +10,7 @@ public class Customer : MonoBehaviour, IInteractable
     public Transform spawnPoint;
     public Chair chairScript;
     public MenuList menuList;
+    public DishData orderedDish;
     public GameObject[] speechBubblePrefabs; // Các prefab khung chat
     public float orderTimeLimit = 10f; // Thời gian chờ nhận món
     public float speechBubbleOffsetY = 1.5f;
@@ -17,9 +18,6 @@ public class Customer : MonoBehaviour, IInteractable
     private float orderTimer;
     public Sprite[] dishSprites;
     private int dishIndex;
-
-    private string orderedDish;
-
     //private bool isMoving = false;
     private bool isSitting = false;
     private bool hasOrdered = false;
@@ -81,6 +79,7 @@ public class Customer : MonoBehaviour, IInteractable
         orderTimer = orderTimeLimit;
         // Hiển thị khung chat
         dishIndex = Random.Range(0, speechBubblePrefabs.Length);
+        orderedDish = menuList.dishes[dishIndex];
         currentSpeechBubble = Instantiate(speechBubblePrefabs[dishIndex], transform.position + new Vector3(0, speechBubbleOffsetY, 0), Quaternion.identity);
         currentSpeechBubble.transform.SetParent(transform); // Gắn khung chat vào khách để di chuyển cùng
     }
@@ -95,7 +94,7 @@ public class Customer : MonoBehaviour, IInteractable
                 Destroy(currentSpeechBubble);
             }
             hasOrdered = false;
-            OrderManager.Instance.AddOrder(orderedDish, dishSprites[dishIndex], this);
+            OrderManager.Instance.AddOrder(orderedDish, this);
             // TODO: Thêm logic để xử lý đơn hàng (như thêm vào danh sách nhiệm vụ người chơi)
         }
     }
