@@ -7,7 +7,7 @@ public class OrderManager : MonoBehaviour
     public GameObject orderCardPrefab;
     public Transform orderPanel;
     public float prepTimeLimit = 15f;
-    private List<OrderCard> activeOrders = new List<OrderCard>();
+    public List<OrderCard> activeOrders = new List<OrderCard>();
 
     private void Awake()
     {
