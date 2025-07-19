@@ -4174,7 +4174,7 @@ TextureImporter:
       name: Player_143
       rect:
         serializedVersion: 2
-        x: 48
+        x: 49
         y: 1086
         width: 48
         height: 98
@@ -13919,6 +13919,7 @@ TextureImporter:
       Player_56: 880588086
       Player_560: -1189217376
       Player_561: 881982310
+      Player_562: 800811482
       Player_57: 1056184417
       Player_58: 1866153456
       Player_59: -937212031

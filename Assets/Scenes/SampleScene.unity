@@ -18089,7 +18089,7 @@ SpriteRenderer:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -21385,13 +21385,9 @@ MonoBehaviour:
   menuList: {fileID: 11400000, guid: 5e31908fe84079a4eaffb5c2eef11b3c, type: 2}
   chairs:
   - {fileID: 866708115}
-  - {fileID: 682166353}
-  - {fileID: 2033416466}
   - {fileID: 1256151930}
-  - {fileID: 24333624}
   - {fileID: 1600243038}
   - {fileID: 2033802457}
-  - {fileID: 346810755}
   spawnInterval: 10
 --- !u!1 &1901720763
 GameObject:
@@ -21487,7 +21483,7 @@ SpriteRenderer:
   m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
