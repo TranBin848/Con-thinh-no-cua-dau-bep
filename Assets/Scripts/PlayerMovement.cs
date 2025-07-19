@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator animator;
+
+    private bool isCarryingFood = false; // Trạng thái cầm món ăn
+    private Food carriedFood; 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -27,17 +30,38 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isWalking", false); // Dừng hoạt hình khi không có di chuyển
             animator.SetFloat("LastInputX", movement.x);
             animator.SetFloat("LastInputY", movement.y);
+            if (carriedFood != null)
+                carriedFood.UpdatePosition(new Vector2(animator.GetFloat("LastInputX"), animator.GetFloat("LastInputY")));
         }
 
         // Lấy giá trị di chuyển từ Input System
         movement = context.ReadValue<Vector2>();
         animator.SetFloat("InputX", movement.x); // Cập nhật giá trị di chuyển theo trục X
         animator.SetFloat("InputY", movement.y); // Cập nhật giá trị di chuyển theo trục Y
-
+        animator.SetBool("isBringFood", isCarryingFood); // Cập nhật animation khi cầm món
+        if (carriedFood != null)
+            carriedFood.UpdatePosition(movement);
     }
 
     void FixedUpdate()
     {
         rb.linearVelocity = movement * moveSpeed; // Cập nhật vận tốc của Rigidbody2D 
+    }
+
+    public void SetCarryingFood(bool isCarrying, Food food = null)
+    {
+        isCarryingFood = isCarrying;
+        carriedFood = food;
+        animator.SetBool("isBringFood", isCarryingFood);
+        if (isCarrying && food != null)
+        {
+            // Khởi tạo vị trí món ăn dựa trên hướng hiện tại
+            food.UpdatePosition(new Vector2(animator.GetFloat("LastInputX"), animator.GetFloat("LastInputY")));
+        }
+    }
+
+    public Food GetCarriedFood()
+    {
+        return carriedFood;
     }
 }
