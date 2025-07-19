@@ -4,6 +4,7 @@ using UnityEngine.XR;
 public class Food : MonoBehaviour, IInteractable
 {
     private bool canBeInteracted = true;
+    public DishData dish;
     public GameObject food;
     public void Interact()
     {
@@ -45,5 +46,10 @@ public class Food : MonoBehaviour, IInteractable
             transform.localPosition = new Vector3(newPos.x, newPos.y, 0);
             Debug.Log($"{gameObject.name} updated localPosition to {transform.localPosition}");
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
     }
 }

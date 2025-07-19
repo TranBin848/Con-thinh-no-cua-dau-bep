@@ -12,7 +12,7 @@ public class Customer : MonoBehaviour, IInteractable
     public MenuList menuList;
     public DishData orderedDish;
     public GameObject[] speechBubblePrefabs; // Các prefab khung chat
-    public float orderTimeLimit = 10f; // Thời gian chờ nhận món
+    public float orderTimeLimit = 30f; // Thời gian chờ nhận món
     public float speechBubbleOffsetY = 1.5f;
     private GameObject currentSpeechBubble; // Khung chat hiện tại
     private float orderTimer;
@@ -26,7 +26,7 @@ public class Customer : MonoBehaviour, IInteractable
     private Animator animator;
 
     public GameObject interactionIcon; // Biểu tượng tương tác
-
+    public Animator interactionAnimator; // Animator cho biểu tượng tương tác
     void Start()
     {
         interactionIcon.SetActive(false); // Ẩn biểu tượng tương tác ban đầu
@@ -94,7 +94,7 @@ public class Customer : MonoBehaviour, IInteractable
                 Destroy(currentSpeechBubble);
             }
             hasOrdered = false;
-            OrderManager.Instance.AddOrder(orderedDish, this);
+            OrderManager.Instance.AddOrder(orderedDish, orderTimeLimit, this);
             // TODO: Thêm logic để xử lý đơn hàng (như thêm vào danh sách nhiệm vụ người chơi)
         }
     }
@@ -117,11 +117,22 @@ public class Customer : MonoBehaviour, IInteractable
     public void OnPrepTimeout()
     {
         Debug.Log(gameObject.name + " hết thời gian chuẩn bị, khách nổi giận và bỏ về!");
-        StartCoroutine(LeaveRestaurant());
+        StartCoroutine(LeaveAngryRestaurant());
         // TODO: Giảm danh tiếng quán
     }
 
-    IEnumerator LeaveRestaurant()
+    IEnumerator LeaveHappyRestaurant()
+    {
+        interactionIcon.SetActive(true); // Hiển thị biểu tượng tương tác khi khách rời đi
+        interactionAnimator.SetBool("isHappy", true);
+        chairScript.isOccupied = false; // Giải phóng ghế
+        animator.SetBool("isSitting", false);
+        animator.SetBool("isMoving", true);
+        agent.SetDestination(spawnPoint.position); // Quay lại điểm spawn
+        yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance);
+        Destroy(gameObject); // Xóa khách
+    }
+    IEnumerator LeaveAngryRestaurant()
     {
         interactionIcon.SetActive(true); // Hiển thị biểu tượng tương tác khi khách rời đi
         chairScript.isOccupied = false; // Giải phóng ghế
@@ -155,7 +166,24 @@ public class Customer : MonoBehaviour, IInteractable
         Debug.Log(canInteract() ? "Có thể tương tác với đơn hàng" : "Không thể tương tác với đơn hàng");
         if (canInteract())
         {
-            InteractWithOrder();
+            PlayerMovement player = FindFirstObjectByType<PlayerMovement>();
+            Food carriedFood = player?.GetCarriedFood();
+            if (carriedFood != null)
+            {
+                Debug.Log(carriedFood.dish.dishId)  ;
+            }
+            if (carriedFood != null && carriedFood.dish.dishId == orderedDish.dishId)
+            {
+                Debug.Log($"{gameObject.name} received correct dish (ID: {orderedDish.dishId})!");
+                Destroy(carriedFood.gameObject);
+                player.SetCarryingFood(false);
+                StartCoroutine(LeaveHappyRestaurant());
+            }
+            else
+            {
+                Debug.Log($"{gameObject.name}: No dish or wrong dish delivered");
+                InteractWithOrder();
+            }
         }
     }
 }

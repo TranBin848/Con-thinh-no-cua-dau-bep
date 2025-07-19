@@ -6,7 +6,6 @@ public class OrderManager : MonoBehaviour
     public static OrderManager Instance;
     public GameObject orderCardPrefab;
     public Transform orderPanel;
-    public float prepTimeLimit = 15f;
     public List<OrderCard> activeOrders = new List<OrderCard>();
    
     private void Awake()
@@ -14,12 +13,12 @@ public class OrderManager : MonoBehaviour
         Instance = this;
     }
 
-    public void AddOrder(DishData dish, Customer customer)
+    public void AddOrder(DishData dish, float orderTime, Customer customer)
     {
         // Tạo card mới
         GameObject card = Instantiate(orderCardPrefab, orderPanel);
         OrderCard cardScript = card.GetComponent<OrderCard>();
-        cardScript.Setup(dish, prepTimeLimit, customer);
+        cardScript.Setup(dish, orderTime, customer);
         activeOrders.Add(cardScript);
     }
 

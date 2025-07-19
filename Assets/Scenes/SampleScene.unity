@@ -687,7 +687,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderCardPrefab: {fileID: 4195034243936058996, guid: 62c918ef62e51a2449e01e40980d153f, type: 3}
   orderPanel: {fileID: 1429589264}
-  prepTimeLimit: 15
   activeOrders: []
 --- !u!1 &331004789
 GameObject:
@@ -18715,7 +18714,6 @@ GameObject:
   - component: {fileID: 1692370157}
   - component: {fileID: 1692370159}
   - component: {fileID: 1692370158}
-  - component: {fileID: 1692370160}
   m_Layer: 0
   m_Name: InteractionIcon
   m_TagString: Untagged
@@ -18815,19 +18813,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1692370160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1692370156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 837b636dc6db2154582ee37198911cf8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
 --- !u!1 &1814580707
 GameObject:
   m_ObjectHideFlags: 0
@@ -21901,9 +21886,13 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3600030751951025626, guid: 9805928aa8fe56342ac50f9f989fa3ef, type: 3}
+      propertyPath: interactionAnimator
+      value: 
+      objectReference: {fileID: 1692370158}
+    - target: {fileID: 3600030751951025626, guid: 9805928aa8fe56342ac50f9f989fa3ef, type: 3}
       propertyPath: interactionController
       value: 
-      objectReference: {fileID: 1692370160}
+      objectReference: {fileID: 0}
     - target: {fileID: 3600030751951025626, guid: 9805928aa8fe56342ac50f9f989fa3ef, type: 3}
       propertyPath: 'dishList.Array.data[0]'
       value: 

@@ -23,7 +23,7 @@ public class Chef : MonoBehaviour
 
     public GameObject interactionIcon; // Biểu tượng tương tác
     public GameObject Pan;
-    public InteractionController interactionController; // Tham chiếu đến InteractionController
+    public Animator interactionAnimator;
     void Start()
     {
         interactionIcon.SetActive(false); // Ẩn biểu tượng tương tác ban đầu
@@ -43,7 +43,7 @@ public class Chef : MonoBehaviour
                 return pos;
             }
         }
-        Debug.LogWarning("Không còn chỗ trống trên bàn!");
+        //Debug.LogWarning("Không còn chỗ trống trên bàn!");
         return tablePositions[0]; // fallback trả về vị trí đầu tiên nếu full
     }
 
@@ -70,12 +70,12 @@ public class Chef : MonoBehaviour
                 {
                     animator.SetBool("isResting", false); // Dừng animation nghỉ nếu có OrderCard mới
                     interactionIcon.SetActive(false); // Ẩn biểu tượng tương tác khi bắt đầu xử lý OrderCard
-                    interactionController.animator.SetBool("isResting", false); // Tắt animation nghỉ trong InteractionController
+                    interactionAnimator.SetBool("isResting", false); // Tắt animation nghỉ trong InteractionController
                     currentOrder = OrderManager.Instance.activeOrders[0];
                     // Có OrderCard, đi đến kho
                     currentState = BossState.MovingToStorage;
                     agent.SetDestination(storagePoint.position);
-                    Debug.Log("Boss moving to storage");
+                   // Debug.Log("Boss moving to storage");
                 }
                 else
                 {
@@ -83,7 +83,7 @@ public class Chef : MonoBehaviour
                     // Không có OrderCard, đi đến phòng riêng
                     currentState = BossState.MovingToPrivateRoom;
                     agent.SetDestination(privateRoomPoint.position);
-                    Debug.Log("Boss moving to private room");
+                    //Debug.Log("Boss moving to private room");
                 }
                 break;
 
@@ -92,7 +92,7 @@ public class Chef : MonoBehaviour
                 {
                     currentState = BossState.CollectingFish;
                     agent.SetDestination(currentOrder.dishData.fishIngredient.transform.position);
-                    Debug.Log($"Boss moving to fish: {currentOrder.dishData.fishIngredient.name}");
+                    //Debug.Log($"Boss moving to fish: {currentOrder.dishData.fishIngredient.name}");
                 }
                 break;
 
@@ -106,7 +106,7 @@ public class Chef : MonoBehaviour
                         currentState = BossState.CollectingVegetable;
                         agent.SetDestination(currentOrder.dishData.vegetableIngredient.transform.position);
                         collectFishTimer = waitTimeAtPoint;
-                        Debug.Log($"Boss collecting fish: {currentOrder.dishData.fishIngredient.name}");
+                        //Debug.Log($"Boss collecting fish: {currentOrder.dishData.fishIngredient.name}");
                     }
                 }
                 break;
@@ -122,7 +122,7 @@ public class Chef : MonoBehaviour
                         agent.SetDestination(kitchenPoint.position);
                         collectVegetableTimer = waitTimeAtPoint;
                         
-                        Debug.Log($"Boss collecting vegetable: {currentOrder.dishData.vegetableIngredient.name}");
+                        //Debug.Log($"Boss collecting vegetable: {currentOrder.dishData.vegetableIngredient.name}");
                     }
                 }
                 break;
@@ -133,7 +133,7 @@ public class Chef : MonoBehaviour
                     animator.SetBool("isCooking", true); // Animation nấu ăn
                     interactionIcon.SetActive(true); // Hiển thị biểu tượng tương tác khi khách rời đi
                     Pan.SetActive(true); // Hiển thị chảo khi nấu ăn
-                    interactionController.animator.SetBool("isCooking", true); // Bật animation nấu ăn trong InteractionController
+                    interactionAnimator.SetBool("isCooking", true); // Bật animation nấu ăn trong InteractionController
                     cookingTimer -= Time.deltaTime;
                     if (cookingTimer <= 0)
                     {
@@ -142,13 +142,13 @@ public class Chef : MonoBehaviour
                         animator.SetBool("isCooking", false); // Dừng animation nấu ăn
                         interactionIcon.SetActive(false); // Ẩn biểu tượng tương tác
                         Pan.SetActive(false); // Ẩn chảo khi nấu ăn xong
-                        interactionController.animator.SetBool("isCooking", false); // Tắt animation nấu ăn trong InteractionController
+                        interactionAnimator.SetBool("isCooking", false); // Tắt animation nấu ăn trong InteractionController
 
                         // Sau khi nấu xong, chuyển sang MovingToTable
                         currentState = BossState.MovingToTable;
                         agent.SetDestination(tablePoint.position);
 
-                        Debug.Log("Boss finished at kitchen, checking orders");
+                        //Debug.Log("Boss finished at kitchen, checking orders");
                     }
                 }
                 break;
@@ -158,9 +158,9 @@ public class Chef : MonoBehaviour
                 {
                     animator.SetBool("isResting", true); // Animation nghỉ
                     interactionIcon.SetActive(true); // Ẩn biểu tượng tương tác khi nghỉ
-                    interactionController.animator.SetBool("isResting", true); // Bật animation nghỉ trong InteractionController
+                    interactionAnimator.SetBool("isResting", true); // Bật animation nghỉ trong InteractionController
                     currentState = BossState.Idle;
-                    Debug.Log("Boss resting in private room");
+                    //Debug.Log("Boss resting in private room");
                 }
                 break;
             case BossState.MovingToTable:
@@ -169,7 +169,7 @@ public class Chef : MonoBehaviour
                     animator.SetBool("isCooking", true); // Dừng animation di chuyển
                     // Đặt món ăn prefab lên bàn
                     Transform emptyPos = GetFirstEmptyTablePosition();
-                    Debug.Log(currentOrder.dishData.dishId);
+                    //Debug.Log(currentOrder.dishData.dishId);
                     switch(currentOrder.dishData.dishId)
                     {
                         case 1: // Món ăn 1
@@ -185,11 +185,11 @@ public class Chef : MonoBehaviour
                     if (emptyPos.childCount == 0)
                     {
                         Instantiate(dishPrefab, emptyPos.position, Quaternion.identity, emptyPos);
-                        Debug.Log("Boss placed dish on table at " + emptyPos.name);
+                        //Debug.Log("Boss placed dish on table at " + emptyPos.name);
                     }
                     else
                     {
-                        Debug.LogWarning("No empty table position found!");
+                        //Debug.LogWarning("No empty table position found!");
                     }
                     animator.SetBool("isCooking", false); // Dừng animation nấu ăn
                     currentState = BossState.Idle;

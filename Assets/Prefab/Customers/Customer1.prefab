@@ -115,13 +115,14 @@ MonoBehaviour:
   - {fileID: 7110479362986831687, guid: f390f197716f0434f8dac16bd43603d9, type: 3}
   - {fileID: 3055687200895463445, guid: 0ca80873531d2de48a136d2e8451d5c6, type: 3}
   - {fileID: 2184028719844501302, guid: 6f7999d48fb60c940804728a36d19fb4, type: 3}
-  orderTimeLimit: 10
+  orderTimeLimit: 60
   speechBubbleOffsetY: 1.5
   dishSprites:
   - {fileID: -346500140, guid: 11a7597b670a3c545a354168d4519458, type: 3}
   - {fileID: 1029353070, guid: 11a7597b670a3c545a354168d4519458, type: 3}
   - {fileID: 667070434, guid: 11a7597b670a3c545a354168d4519458, type: 3}
   interactionIcon: {fileID: 8784566841316278642}
+  interactionAnimator: {fileID: 1844581055740069237}
 --- !u!195 &4804119198142228627
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -250,6 +251,7 @@ GameObject:
   - component: {fileID: 2074951317240956649}
   - component: {fileID: 1143680310262363446}
   - component: {fileID: 1844581055740069237}
+  - component: {fileID: 5400573147389005770}
   m_Layer: 0
   m_Name: InteractionIcon
   m_TagString: Untagged
@@ -349,3 +351,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5400573147389005770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8784566841316278642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 837b636dc6db2154582ee37198911cf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}

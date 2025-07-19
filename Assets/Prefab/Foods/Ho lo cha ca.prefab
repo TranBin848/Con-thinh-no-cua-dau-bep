@@ -147,4 +147,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15491cd7cdaa8c43804db842f2fdccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dish: {fileID: 11400000, guid: 724331f53d86667479d635656760ecd8, type: 2}
   food: {fileID: 2319860808719847277}
