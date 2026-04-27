@@ -46,7 +46,7 @@ public class Chef : MonoBehaviour, IInteractable
 
     void Start()
     {
-        interactionIcon.SetActive(false); // Ẩn biểu tượng tương tác ban đầu
+        interactionIcon.SetActive(false); 
         Pan.SetActive(false );
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         animator = GetComponent<Animator>();
@@ -58,13 +58,13 @@ public class Chef : MonoBehaviour, IInteractable
     {
         foreach (Transform pos in tablePositions)
         {
-            if (pos.childCount == 0) // Nếu không có object con, vị trí trống
+            if (pos.childCount == 0) 
             {
                 return pos;
             }
         }
         //Debug.LogWarning("Không còn chỗ trống trên bàn!");
-        return tablePositions[0]; // fallback trả về vị trí đầu tiên nếu full
+        return tablePositions[0]; 
     }
 
     public void SetAngryMouse(bool value)
@@ -83,7 +83,7 @@ public class Chef : MonoBehaviour, IInteractable
         if (value == true)
         {
             interactionIcon.SetActive(true);
-            AudioManager.Instance.playchefSFX("Angry"); // 🔊 Play khi giận dữ
+            AudioManager.Instance.playchefSFX("Angry"); 
         }
         interactionAnimator.SetBool("isAngrySalt", value);
     }
